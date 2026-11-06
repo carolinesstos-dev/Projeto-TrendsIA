@@ -11,9 +11,11 @@ if not chave:
 
 cliente = genai.Client(api_key=chave)
 
+entrada = input("Digite sua mensagem: ").strip()
+
 resposta = cliente.models.generate_content(
-       model="gemini-3.6-flash",
-    contents="Em uma frase, o que é triagem em um pronto-socorro?",
+    model="gemini-3.6-flash",
+    contents=entrada,
 )
 
 print(resposta.text)
