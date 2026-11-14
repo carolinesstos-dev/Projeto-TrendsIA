@@ -21,3 +21,23 @@ def carregar_chave() -> str:
 
 def carregar_modelo() -> str:
     return os.getenv("GEMINI_MODELO", "gemini-3.6-flash")
+
+import json
+from pathlib import Path
+
+CAMINHO_PARAMETROS = Path(__file__).parent / "parametros.json"
+
+
+def carregar_parametros() -> dict:
+    try:
+        with open(CAMINHO_PARAMETROS, encoding="utf-8") as arquivo:
+            dados = json.load(arquivo)
+    except FileNotFoundError as erro:
+        raise ErroConfiguracao("O arquivo parametros.json não foi encontrado.") from erro
+    except json.JSONDecodeError as erro:
+        raise ErroConfiguracao("O arquivo parametros.json não é um JSON válido.") from erro
+
+    return {
+        "temperatura": float(dados.get("temperatura", 0.2)),
+        "max_tokens": int(dados.get("max_tokens", 300)),
+    }
