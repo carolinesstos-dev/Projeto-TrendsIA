@@ -1,21 +1,28 @@
-import os
+from config import ErroConfiguracao, carregar_chave, carregar_modelo
+from llm_client import ErroLLM, consultar_modelo
 
-from dotenv import load_dotenv
-from google import genai
 
-load_dotenv()
+def main() -> None:
+    try:
+        chave = carregar_chave()
+        modelo = carregar_modelo()
+    except ErroConfiguracao as erro:
+        print(f"Erro de configuração: {erro}")
+        return
 
-chave = os.getenv("GEMINI_API_KEY")
-if not chave:
-    raise SystemExit("GEMINI_API_KEY não encontrada. Verifique o arquivo .env.")
+    entrada = input("Digite sua mensagem: ").strip()
+    if not entrada:
+        print("A mensagem não pode estar vazia. Descreva o que você está sentindo.")
+        return
 
-cliente = genai.Client(api_key=chave)
+    try:
+        resposta = consultar_modelo(chave, modelo, entrada)
+    except ErroLLM as erro:
+        print(f"Erro ao consultar o modelo: {erro}")
+        return
 
-entrada = input("Digite sua mensagem: ").strip()
+    print(resposta)
 
-resposta = cliente.models.generate_content(
-    model="gemini-3.6-flash",
-    contents=entrada,
-)
 
-print(resposta.text)
+if __name__ == "__main__":
+    main()
