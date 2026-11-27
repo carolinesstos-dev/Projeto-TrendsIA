@@ -48,3 +48,12 @@ def test_credencial_invalida_gera_mensagem_clara():
         with pytest.raises(ErroLLM) as info:
             consultar_modelo("chave-ficticia", "modelo-teste", "tosse")
     assert "Credencial inválida" in str(info.value)
+
+def test_indisponibilidade_gera_mensagem_clara():
+    with patch("llm_client.genai.Client") as cliente_falso:
+        cliente_falso.return_value.models.generate_content.side_effect = (
+            Exception("503 UNAVAILABLE: high demand")
+        )
+        with pytest.raises(ErroLLM) as info:
+            consultar_modelo("chave-ficticia", "modelo-teste", "tosse")
+    assert "temporariamente indisponível" in str(info.value)

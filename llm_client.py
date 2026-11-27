@@ -25,7 +25,14 @@ def consultar_modelo(chave: str, modelo: str, texto: str) -> str:
             raise ErroLLM(
                 "Credencial inválida. Verifique GEMINI_API_KEY no arquivo .env."
             ) from erro
-        raise ErroLLM(f"Não foi possível consultar o modelo: {erro}") from erro
+        if "503" in mensagem or "UNAVAILABLE" in mensagem:
+            raise ErroLLM(
+                "O serviço do modelo está temporariamente indisponível. "
+                "Tente novamente em alguns minutos."
+            ) from erro
+        raise ErroLLM(
+            "Não foi possível consultar o modelo. Verifique a conexão e tente novamente."
+        ) from erro
 
     if not resposta.text:
         raise ErroLLM("O modelo respondeu sem texto.")
