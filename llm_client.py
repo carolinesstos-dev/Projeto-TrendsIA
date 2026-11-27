@@ -20,6 +20,11 @@ def consultar_modelo(chave: str, modelo: str, texto: str) -> str:
             ),
         )
     except Exception as erro:
+        mensagem = str(erro)
+        if "401" in mensagem or "API key" in mensagem:
+            raise ErroLLM(
+                "Credencial inválida. Verifique GEMINI_API_KEY no arquivo .env."
+            ) from erro
         raise ErroLLM(f"Não foi possível consultar o modelo: {erro}") from erro
 
     if not resposta.text:

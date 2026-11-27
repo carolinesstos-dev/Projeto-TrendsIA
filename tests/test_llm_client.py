@@ -37,3 +37,14 @@ def test_falha_de_comunicacao_gera_erro_compreensivel():
         with pytest.raises(ErroLLM) as info:
             consultar_modelo("chave-ficticia", "modelo-teste", "tosse")
     assert "Não foi possível consultar o modelo" in str(info.value)
+
+
+
+def test_credencial_invalida_gera_mensagem_clara():
+    with patch("llm_client.genai.Client") as cliente_falso:
+        cliente_falso.return_value.models.generate_content.side_effect = (
+            Exception("401 UNAUTHENTICATED: API key not valid")
+        )
+        with pytest.raises(ErroLLM) as info:
+            consultar_modelo("chave-ficticia", "modelo-teste", "tosse")
+    assert "Credencial inválida" in str(info.value)
