@@ -126,11 +126,11 @@ Entrada: `Estou com tosse há uma semana e ontem tive febre`
 
 
 
-Saída: \[### 1. Tipos de Tosse
+Saída:  1. Tipos de Tosse
 
 \* \*\*Tosse Seca (Irritativa):\*\* Não produz catarro. É comum em alergias, exposição à poluição/ar seco, refluxo ou no início de gripes e resfriados.
 
-\* \*\*Tosse Produtiva (com catarro):\*\* Produz secreção. Serve para expulsar o muco acumulado nos pulmões ou bronquios. Comum no final de gripes, em bronquites ou pneumonias.]
+\* \*\*Tosse Produtiva (com catarro):\*\* Produz secreção. Serve para expulsar o muco acumulado nos pulmões ou bronquios. Comum no final de gripes, em bronquites ou pneumonias.
 
 
 
@@ -158,7 +158,7 @@ Testes reais: a execução do `main.py` com uma entrada válida faz uma chamada 
 
 
 
-Testes simulados: \[PREENCHER QUANDO OS TESTES DE CREDENCIAL INVÁLIDA E FALHA DE COMUNICAÇÃO ESTIVEREM PRONTOS].
+Testes simulados: Ainda não implementados. Serão adicionados na próxima etapa do Intermediário.
 
 
 
@@ -178,5 +178,5 @@ Testes simulados: \[PREENCHER QUANDO OS TESTES DE CREDENCIAL INVÁLIDA E FALHA D
 
 
 
-\[LINK DO VÍDEO NO YOUTUBE, NÃO LISTADO]
+LINK DO VÍDEO SERÁ ACRESCENTADO AO FINAL DO PROJETO
 
